@@ -28,12 +28,8 @@ public class MyToDoList {
 	
 		int SizeArray = 0;
 		char userChoice ;
-		String temporayString = "";
-		int checkLength = 0;
 		boolean isContinued = false;
-		char answer;
-		int counterElement = 0;
-		answer = 'Y';
+		int counterTask = 0;
 		Scanner Scan = new Scanner(System.in);
 		System.out.println("Lab Assignment:: My To-DoList ");
 		System.out.println("How many elements do you want in your to do list ? :");
@@ -42,71 +38,75 @@ public class MyToDoList {
 		//Initialization of the array of To-DoList
 		String[] toDoList = new String [SizeArray];
 		//Calling the function to display the menu
-		System.out.println("Your to-Do-List of " + SizeArray + "  elements has been created \n");
+		System.out.println("Your to-Do-List of " + SizeArray  + "  elements has been created \n");
 		DisplayMenu();
 	
 		try {
 			
-			while(answer == 'Y') {
-					do
+				do
 					{
 						System.out.println("Enter your choice ");
 					    userChoice = Scan.next().trim().charAt(0);
-				if(userChoice !='A' && userChoice !='M' && userChoice !='D' && userChoice !='L') {
-					throw new Exception ("Invalid answer for user choice! Please select A, M, D or L ");
+				if(userChoice !='A' && userChoice !='M' && userChoice !='D' && userChoice !='L' && userChoice !='Q') {
+					throw new Exception ("Invalid answer for user choice! Please select A, M, D, L, Q ");
 				}
 				else {
-					if(userChoice == 'A' && counterElement < SizeArray){
+					if(userChoice == 'A'){
+						
 						System.out.print("\f");
 						System.out.println("Processing addition of a task to the To-Do-List .... ");
-						AddingTaskToMyList(toDoList,SizeArray,counterElement);
-						PrintMyToDoList(toDoList);
-						DisplayMenu();
+						if(counterTask  == (toDoList.length)){
+							throw new Exception ("Sorry! Your To-Do-List is full ");
+							
+						}
+						else
+						{
+						AddingTaskToMyList(toDoList,SizeArray,counterTask);
+						PrintMyToDoList(toDoList,counterTask);
+						counterTask ++;
 						isContinued = true;
-						counterElement ++;
+						}
+						System.out.print("\f");
+						PrintMyToDoList(toDoList,counterTask);
+						DisplayMenu();
 					}
 					if(userChoice == 'M'){
 						System.out.print("\f");
 						System.out.println("Processing modification of a task to the To-Do-List ....");
-						 PrintMyToDoList(toDoList);
+						 PrintMyToDoList(toDoList,counterTask);
 						 ModifyingExistingTask(toDoList);
 						 isContinued = true;
 					}
 					if(userChoice == 'D'){
 						
 						System.out.print("\f");
-						PrintMyToDoList(toDoList);
+						PrintMyToDoList(toDoList,counterTask);
 						 System.out.println("Processing suppression of a task to the To-Do-List ....");
-						 SuppressionElementOfToDoList(toDoList);
-						 PrintMyToDoList(toDoList);
-						
+						 SuppressionElementOfToDoList(toDoList,counterTask);
+						 PrintMyToDoList(toDoList,counterTask);
+						 isContinued = true;
 					}
 					if(userChoice == 'L'){
 						System.out.print("\f");
 						System.out.println("Processing display of a task to the To-Do-List.... ");
 						System.out.print("\n");
 						System.out.println("Your current to-Do-List contains those following tasks :");
-						PrintMyToDoList(toDoList);
-						DisplayMenu();	
+						PrintMyToDoList(toDoList,counterTask);
+						DisplayMenu();
+						isContinued = true;
+						
+					}
+					if(userChoice == 'Q'){
+						isContinued = false;
 					}
 				}
 						
 						
-					}while(isContinued == true);
-						
-				
-				
-				System.out.println("Do you want to continue Y/N ? ");
-				answer = Scan.next().trim().charAt(0); //Allow the program to catch the first letter of String at index 0
-				
-			} // End of the block  first while
-
-			
+				}while(isContinued == true);
 			
 			
 		} // End of the block try
 			
-		
 			catch (NumberFormatException ex)
 	          {
 	              System.out.println("Number Format Exception " + ex.getMessage());              
@@ -117,12 +117,10 @@ public class MyToDoList {
 	          } //End block ArithmeticException
 	
 	}
-	
-	
 	//Method to add a task
 	public static void AddingTaskToMyList(String[] arrayToFill, int size, int counter) {
 		Scanner in = new Scanner(System.in);
-		if(counter < arrayToFill.length){
+		if(counter <= arrayToFill.length){
 			System.out.println("Enter your new task :");
 			arrayToFill[counter] = in.nextLine();
 		}
@@ -131,13 +129,19 @@ public class MyToDoList {
 		}
 	}
 	//Printing the array of tasks
-	public static void PrintMyToDoList(String[] arrayToPrint) {
-		int Position = 0 ;
+	public static void PrintMyToDoList(String[] arrayToPrint, int currentTask) {
+		
 		System.out.println("\n");
-			for (int i = 0; i < arrayToPrint.length; i++)
+		if(currentTask < 0){
+			System.out.println("List empty");
+		}
+		else{
+			
+		}
+			for (int i = 0; i < currentTask; i++)
 			{
-				Position = i + 1;
-				System.out.println("Task " + Position + " :" + arrayToPrint[i]);
+				//Position = i + 1;
+				System.out.println("Task " + (i+1) + " :" + arrayToPrint[i]);
 			}
 		}
 	//The menu of the program
@@ -146,7 +150,8 @@ public class MyToDoList {
 			   System.out.println("\t A---> Add a new task");
 	    	   System.out.println("\t M---> Modify an existing task");
 		       System.out.println("\t D---> Delete an existing task");
-		       System.out.println("\t L---> List all elements to-Do-Lists");   
+		       System.out.println("\t L---> List all the  existing tasks");
+		       System.out.println("\t Q---> Quit the program");   
 		}
 	//Method to modify an existing task
 	public static void ModifyingExistingTask(String arrayToModify[]) throws Exception {
@@ -158,7 +163,7 @@ public class MyToDoList {
 		taskNumberToModify= in.nextInt();
 		realIndex = taskNumberToModify -1;
 		if(realIndex < 0 && taskNumberToModify > arrayToModify.length){
-			throw new Exception ("Invalid index number! Please enter a number between "+0 + arrayToModify.length);
+			throw new Exception ("Invalid index number! Please enter a number between " + arrayToModify.length);
 		}
 		else {
 			System.out.println("Please enter description on the new task :");
@@ -169,15 +174,21 @@ public class MyToDoList {
 		}
 		
 	}
-	//Method to modify an existing task
-	public static void SuppressionElementOfToDoList(String arrayToModify[]) {
+	//Method to delete an existing task
+	public static void SuppressionElementOfToDoList(String arrayToModify[], int currentIndex ) {
 		int realIndex = 0;
 		int taskNumberToModify = 0;
 		Scanner in = new Scanner(System.in);
 		System.out.println("Which index task  do you want to delete ? ");
 		taskNumberToModify= in.nextInt();
+		int lengthArray = arrayToModify.length; 
 		realIndex = taskNumberToModify -1;
-		arrayToModify[realIndex] = "";
+		
+		for(int i= realIndex; i < lengthArray ; i++ ){
+			arrayToModify[i-1] = arrayToModify[i];
+		}
+		lengthArray = lengthArray -1;
+		
 
 	}
 	
