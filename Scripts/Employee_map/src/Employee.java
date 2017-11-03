@@ -8,6 +8,16 @@ public class Employee {
 	private double empSalary;
 	
 	/**
+	 * Default constructor of employee
+	 */
+public Employee() {
+		
+		empNumber = 0;
+		empName = "";
+		empSalary = 0.0;
+		}
+	
+	/**
 	 * Constructs an employee with 0.0 as salary
 	 * @param number : the number of the employee
 	 * @throws Exception according to employee number greater than 0 and less 50
@@ -27,14 +37,6 @@ public class Employee {
 	 * @param number : the number of the employee
 	 * @param name : the name of the employee
 	 * @param salary : the salary of the employee
-	 * @throws Exception
-	 */
-	
-	/**
-	 * Default constructor
-	 * @param number
-	 * @param name
-	 * @param salary
 	 * @throws Exception
 	 */
 	public Employee(byte number, String name, double salary) throws Exception {
@@ -91,7 +93,7 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return String.format("EMPLOYEE INFOS:\n Num: %d Name: %s Salary: %.2f ", empNumber, empName, empSalary);
+		return String.format("\n Num: %d Name: %s Salary: %.2f ", empNumber, empName, empSalary);
 	}
 	
 }
