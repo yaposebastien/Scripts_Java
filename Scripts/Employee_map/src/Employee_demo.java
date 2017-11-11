@@ -1,3 +1,4 @@
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.HashMap;
@@ -14,6 +15,8 @@ public class Employee_demo {
 	public static void main(String[] args) throws Exception
 	{
 		System.out.println("Begin Employee Map Demo");
+		Date date = new Date();
+		System.out.println("Date :" + date);
     	System.out.println("Creation of new employee\n");
     	
     	Employee empOne = new Employee();
@@ -56,7 +59,13 @@ public class Employee_demo {
     	 System.out.println("Liste of employees \n");
     	for (Map.Entry<Byte, Employee> listEmployee : employees)
     		{
-    		System.out.println(listEmployee.toString());
+    		byte empkey = listEmployee.getKey();
+    		String empName = listEmployee.getValue().getEmpName();
+    		double empSalary = listEmployee.getValue().getEmpSalary();
+    		
+    		System.out.println("Id :" + empkey + " " + "Name : " + empName
+					+ " "+ "Salary: " + empSalary );
+    		//System.out.println(listEmployee.toString());
     		}
     	/**
     	 * Searching for an existing employee according 
