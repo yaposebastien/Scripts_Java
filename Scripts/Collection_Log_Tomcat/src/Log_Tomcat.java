@@ -1,8 +1,10 @@
 import java.util.Date;
 
 
-public class Log_Tomcat {
+
+public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	
+	private int positionLog;
 	private String addressLog;
 	private Date dateLog;
 	private String contextLog;
@@ -13,39 +15,127 @@ public class Log_Tomcat {
 	 */
 	
 	public Log_Tomcat() {
+		positionLog = 0;
 		addressLog = "";
 		dateLog = null;
 		contextLog = "";
+		
 		
 	}
 	
 	/**
 	 * Constructs class Log_Tomcat with parameters
-	 * @param addressLog
-	 * @param dateLog
-	 * @param contextLog
+	 * @param address
+	 * @param date
+	 * @param context
 	 * @throws Exception
 	 */
 	
-	public Log_Tomcat(String addressLog, Date dateLog, String contextLog) throws Exception {
+	public Log_Tomcat(int position,String address, Date date, String context) throws Exception {
 		
-		this.addressLog = addressLog;
-		this.dateLog = dateLog;
-		this.contextLog = contextLog;
+		setPositionLog(position);
+		setAddress(address);
+		setDate(date);
+		setContext(context);
 	}
 	
 	/**
 	 * List of Setters and Getters for the class Log_Tomcat
+	 * setAddress()
+	 * 
 	 */
 	
+	
+	public void setPositionLog(int position) throws Exception {
+		
+		if(position == 0)
+			{ throw new Exception("The Log position must graeter than zero");}
+		else
+			{ positionLog = position ; }
+			
+	}
+	
+	
+	/**
+	 * Set the IP address of the log
+	 * @param address - IP address
+	 * @throws Exception
+	 */
 	public void setAddress(String address) throws Exception {
 		
-		if(address.length() <= 7 && address.length() > 32)
-			{ throw new Exception("The Ip address must not be an empty string"); }
-		if(address == "")
-		{ throw new Exception("The Ip address must not be an empty string"); }
+		if(address.length() >= 7 && address.length() <= 15)
+			{ addressLog = address; }
 		else
-			{ throw new Exception(""); }
+			{ throw new Exception("Sorry!" +address +" "+ "is not a valid ip address"); }
+	}
+	
+	/**
+	 * Set the date of the log 
+	 * @param date
+	 * @throws Exception
+	 */
+	public void setDate(Date date) throws Exception {
+		
+		if(date == null)
+			{ throw new Exception("Sorry! the date must not be null"); }
+		else
+			{ dateLog = date;}
+	}
+	
+	/**
+	 * Set the context of the log 
+	 * @param context
+	 * @throws Exception
+	 */
+	public void setContext(String context) throws Exception {
+		
+		if(context == "")
+		{ throw new Exception("The context of the log must not be an empty string"); }
+	else
+		{ contextLog = context;}
+	}
+	
+	/**
+	 * 
+	 * @return IP address
+	 */
+	public String getAddress() {
+		return addressLog;
+	}
+	
+	/**
+	 * 
+	 * @return date of the log 
+	 */
+	public Date getDate() {
+		return dateLog;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public String getContext() {
+		return contextLog;
+	}
+	
+	/**
+	 * 
+	 * @param Obj
+	 * @return
+	 */
+	@Override
+	public int compareTo(Log_Tomcat otherLog) {
+		//return dateLog.compareTo(otherLog.getDate());
+		return (positionLog - otherLog.positionLog);
+	}
+	/**
+	 * toString to display a log
+	 */
+	@Override
+	public String toString() {
+		return String.format("Log N° : %d -- IP address : %s -- Date: %s -- Context: %s ", positionLog, addressLog, dateLog, contextLog);
+	}
+		
 }
+
