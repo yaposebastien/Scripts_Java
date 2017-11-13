@@ -22,11 +22,11 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
 		 */
 		LinkedList<Log_Tomcat> LogTomcat = new LinkedList<Log_Tomcat>();
 		
-		LogTomcat.add(new Log_Tomcat(1,"10.10.10.1",dateSystem,"www.yahoo.com"));
-		LogTomcat.add(new Log_Tomcat(2,"8.8.8.8",dateSystem,"www.google.com"));
-		LogTomcat.add(new Log_Tomcat(3,"208.95.248.40",dateSystem,"www.nkeyapo.com"));
-		LogTomcat.add(new Log_Tomcat(4,"204.108.245.114",dateSystem,"www.dccc.edu"));
-		LogTomcat.add(new Log_Tomcat(5,"169.54.177.64",dateSystem,"www.abidjan.net"));
+		LogTomcat.add(new Log_Tomcat(1,"10.10.10.1","www.yahoo.com"));
+		LogTomcat.add(new Log_Tomcat(2,"8.8.8.8","www.google.com"));
+		LogTomcat.add(new Log_Tomcat(3,"208.95.248.40","www.nkeyapo.com"));
+		LogTomcat.add(new Log_Tomcat(4,"204.108.245.114","www.dccc.edu"));
+		LogTomcat.add(new Log_Tomcat(5,"169.54.177.64","www.abidjan.net"));
 			
        	
     		
@@ -36,18 +36,29 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
     				
     				
     				{
-    					//Calling function displayAllLogs to print the list of logs
-    					displayAllLogs(LogTomcat);
-    					
-    					//Calling function to print the menu of the application 
-    					System.out.println(menuList());
-    					
-    					//Adding
-    					addingLog(LogTomcat);
-    					displayAllLogs(LogTomcat);
-    					System.out.println(menuList());
-
-    					
+    					int doYouWantQuit = 0;
+    					do {
+    						
+    						Scanner saisie = new Scanner(System.in);
+    						//Calling function displayAllLogs to print the list of logs
+        					displayAllLogs(LogTomcat);
+        					
+        					//Calling function to print the menu of the application 
+        					System.out.println(menuList());
+        					
+        					int userAnswer = saisie.nextInt();
+        					switch(userAnswer) {
+        					case 1: 
+        						addingLog(LogTomcat);
+        						displayAllLogs(LogTomcat);
+        						System.out.println(menuList());
+        						userAnswer = saisie.nextInt();
+        						break;
+        						
+        					}
+        					
+    						
+    					}while(doYouWantQuit !=0);
     				}
     			}
     			catch(Exception e)
@@ -57,7 +68,7 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
     			
     		
 
-    		System.out.println("\nEnd of EmployeeMap Class Implementation");
+    		System.out.println("\n End of Class of Collection Log ");
 		
 
 	}
@@ -68,19 +79,22 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
 	 * @return
 	 */
 	public static String menuList() {
-		String headMenu = "Select an action to proceed[or Q to Quit] ";
-		String add = "[A]dd new a log ";
-		String select = "[S]elect a log";
-		String change = "[C]hange a log";
-		String delete = "[D]elete a log";
-		String quit = "[Q]uit log app\n";
+		String headMenu = "Please Make A Selection To Proceed : \n ";
+		String add = "Press [1] To Add A Log ";
+		String select = "Press [2] To Display A Log";
+		String change = "Press [3] To Modify A Log";
+		String delete = "Press [4] To Delete A Log";
+		String quit = "Press [0] To Quit The Application\n";
 		
 		return String.format("%s" + "\n"
-		+"%20s" + "\n"
-		+"%18s" + "\n" 
-		+"%18s" + "\n"
-		+"%18s" + "\n"
-		+"%19s",headMenu, add, select, change, delete, quit);
+		+"%s" + "\n"
+		+"%s" + "\n" 
+		+"%s" + "\n"
+		+"%s" + "\n"
+		+"%s",headMenu, add, select, change, delete, quit);
+		
+		
+		    
 	}
 	
 	/**
@@ -93,22 +107,33 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
 			System.out.println(allLogs + "\n");
 		}
 	}
-	
+	/**
+	 * 
+	 * @param listLogs
+	 * @throws Exception
+	 */
 	public static void addingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
-		int pos = 0;
-		String ip="";
-		Date dateip=null;
-		String context;
+		int pos = 0; String ip=""; String context;
+		
+		
 		Scanner saisie = new Scanner(System.in);
 		System.out.println("Enter position of log :");
 		pos = saisie.nextInt();
 		System.out.println("Enter the IP address of log");
 		ip = saisie.next();
-		Date dateSystem = new Date();
-		dateip = dateSystem;
 		System.out.println("Enter the context :");
 		context = saisie.next();
-		listLogs.add(new Log_Tomcat(pos,ip,dateip,context));
+		listLogs.add(new Log_Tomcat(pos,ip,context));
+	}
+	
+	public static void selectingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
+		Scanner saisie = new Scanner(System.in);
+		int logToSelect = 0;
+		System.out.println("Enter the number of the log :");
+		logToSelect = saisie.nextInt();
+		//if(listLogs.contains(logToSelect))
+			//{ System.out.println(listLogs(logToSelect));}
+		
 	}
 
 	@Override

@@ -1,4 +1,6 @@
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 
 
@@ -6,7 +8,7 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	
 	private int positionLog;
 	private String addressLog;
-	private Date dateLog;
+	private String dateLog;
 	private String contextLog;
 	
 	/**
@@ -17,7 +19,7 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	public Log_Tomcat() {
 		positionLog = 0;
 		addressLog = "";
-		dateLog = null;
+		dateLog = "";
 		contextLog = "";
 		
 		
@@ -31,11 +33,11 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 * @throws Exception
 	 */
 	
-	public Log_Tomcat(int position,String address, Date date, String context) throws Exception {
+	public Log_Tomcat(int position,String address, String context) throws Exception {
 		
 		setPositionLog(position);
 		setAddress(address);
-		setDate(date);
+		setDate();
 		setContext(context);
 	}
 	
@@ -74,12 +76,16 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 * @param date
 	 * @throws Exception
 	 */
-	public void setDate(Date date) throws Exception {
+	public void setDate() throws Exception {
 		
-		if(date == null)
-			{ throw new Exception("Sorry! the date must not be null"); }
-		else
-			{ dateLog = date;}
+		SimpleDateFormat dateSystem = new SimpleDateFormat("yyyy-MMM-dd hh:mm:ss aa");
+		dateSystem.setTimeZone(TimeZone.getTimeZone("GMT"));
+		dateLog = dateSystem.format(new Date());
+		
+//		if(date == null)
+//			{ throw new Exception("Sorry! the date must not be null"); }
+//		else
+//			{ dateLog = date;}
 	}
 	
 	/**
@@ -107,7 +113,7 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 * 
 	 * @return date of the log 
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return dateLog;
 	}
 
