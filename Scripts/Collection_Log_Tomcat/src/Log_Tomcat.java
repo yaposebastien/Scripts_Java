@@ -122,7 +122,7 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 */
 	@Override
 	public String toString() {
-		return String.format("IP address : %s -- Date: %s -- Context: %s ", addressLog, dateLog, contextLog);
+		return String.format(" " + "--" + " " + "IP address: %s -- Date: %s -- Context: %s ", addressLog, dateLog, contextLog);
 	}
 		
 }

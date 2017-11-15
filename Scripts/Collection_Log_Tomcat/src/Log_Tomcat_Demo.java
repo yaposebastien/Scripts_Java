@@ -14,7 +14,6 @@ public class Log_Tomcat_Demo {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		System.out.println("Demo implementation of LinkedList with Java \n");
 		Date dateSystem = new Date();
 		
 		/**
@@ -33,15 +32,11 @@ public class Log_Tomcat_Demo {
         boolean done = false;
         int optionUser;
         
-        System.out.println("Begin Of Demo Collection Log IP address n");
+        System.out.println("Begin Of Demo Collection Log IP address. \n");
     			try
     			{
     				{
-    					
-    					
-    			        
-    					
-    					
+ 
     					do
     					{
     						displayAllLogs(LogTomcat);
@@ -67,13 +62,11 @@ public class Log_Tomcat_Demo {
         						System.out.println("\f");
         						System.out.println("Modifying a specific log from the Log file ....");
         						while(!changingLog(LogTomcat)) {};
-        						//displayAllLogs(LogTomcat);
-        						//menuList(in);
         						break;
         						
         					case 4: 
         						System.out.println("\f");
-        						System.out.println("Removing a specific log from the Log file ....");
+        						System.out.println("Delete a specific entry of the Log file ....");
         						while(!removingLog(LogTomcat)) {};
         						displayAllLogs(LogTomcat);
         						break;
@@ -82,11 +75,7 @@ public class Log_Tomcat_Demo {
         						System.out.println("\n End of Class of Collection Log ");
         						System.exit(0);
         						break;
-        					
-        						
-        					
-        						
-        						
+	
         				}// End of Switch Statement
     						
     						
@@ -131,12 +120,13 @@ public class Log_Tomcat_Demo {
 	 * Function to display all the elements of the linkedList of logs
 	 * @param listLogs
 	 */
-	public static void  displayAllLogs(LinkedList<Log_Tomcat> listLogs) {
+	public static void displayAllLogs(LinkedList<Log_Tomcat> listLogs) {
 		
 		System.out.println("Displaying the current content of Log file");
 		for (Log_Tomcat allLogs : listLogs) {
-			System.out.println(allLogs + "\n");
+			System.out.println("Index:" + " " + listLogs.indexOf(allLogs) +  allLogs +  "\n");
 		}
+		
 	
 	}
 	/**
@@ -171,12 +161,15 @@ public class Log_Tomcat_Demo {
 		for(Log_Tomcat objectDisplay : listLogs) {
 			if(objectDisplay.getAddress().equalsIgnoreCase(toDisplay))
 				{
-				System.out.println("Details of your log : " + " " + toDisplay);
-				System.out.println("Date : "+ " " +objectDisplay.getDate());
-				System.out.println("Your context : " + " " + objectDisplay.getContext() );
+				System.out.println("Printing the details of searched log .... ");
+				System.out.println("Details of IP address searched : " + " " + toDisplay);
+				System.out.println("Date of access was : "+ " " +objectDisplay.getDate());
+				System.out.println("Context of IP was : " + " " + objectDisplay.getContext() );
+				
 				break;
 			   }
 		}
+		
 		return true;
 		
 	}
@@ -188,9 +181,19 @@ public class Log_Tomcat_Demo {
 	 */
 	public static boolean removingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
 		saisie = new Scanner(System.in);
-		System.out.println("Enter the log to delete :");
-		String toDelete = saisie.next();
-		for(Log_Tomcat objectDelete : listLogs) {
+		System.out.println("Enter the index of the log to delete :");
+		int toDelete = saisie.nextInt();
+		if(toDelete >= 0 && toDelete < listLogs.size())
+			{listLogs.remove(toDelete);}
+		else
+			{System.out.println("Sorry!" + toDelete + " " + " is an invalid index of log");}
+		
+		/**This following portion of code can just only delete
+		 * by typing the IP address of the Log
+		 * 
+		 */
+		
+		/*for(Log_Tomcat objectDelete : listLogs) {
 			if(objectDelete.getAddress().equalsIgnoreCase(toDelete)) 
 				{
 					listLogs.remove(objectDelete);
@@ -201,7 +204,7 @@ public class Log_Tomcat_Demo {
 				{ System.out.println("Sorry! This IP address " + " "+ toDelete + " " + "does  not belong to the log file");
 					break;
 				}
-		}
+		}*/
 		return true;
 	}
 		/**
@@ -233,11 +236,6 @@ public class Log_Tomcat_Demo {
 					
 				}
 				return true;
-			  
-			
-			
-		}
-			
-		
+		}	
 	}
 
