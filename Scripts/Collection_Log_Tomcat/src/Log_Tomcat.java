@@ -6,7 +6,6 @@ import java.util.TimeZone;
 
 public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	
-	private int positionLog;
 	private String addressLog;
 	private String dateLog;
 	private String contextLog;
@@ -17,12 +16,10 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 */
 	
 	public Log_Tomcat() {
-		positionLog = 0;
+		
 		addressLog = "";
 		dateLog = "";
 		contextLog = "";
-		
-		
 	}
 	
 	/**
@@ -33,9 +30,8 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 * @throws Exception
 	 */
 	
-	public Log_Tomcat(int position,String address, String context) throws Exception {
+	public Log_Tomcat(String address, String context) throws Exception {
 		
-		setPositionLog(position);
 		setAddress(address);
 		setDate();
 		setContext(context);
@@ -46,16 +42,6 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 * setAddress()
 	 * 
 	 */
-	
-	
-	public void setPositionLog(int position) throws Exception {
-		
-		if(position == 0)
-			{ throw new Exception("The Log position must graeter than zero");}
-		else
-			{ positionLog = position ; }
-			
-	}
 	
 	
 	/**
@@ -79,13 +65,8 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	public void setDate() throws Exception {
 		
 		SimpleDateFormat dateSystem = new SimpleDateFormat("yyyy-MMM-dd hh:mm:ss aa");
-		dateSystem.setTimeZone(TimeZone.getTimeZone("GMT"));
 		dateLog = dateSystem.format(new Date());
-		
-//		if(date == null)
-//			{ throw new Exception("Sorry! the date must not be null"); }
-//		else
-//			{ dateLog = date;}
+	
 	}
 	
 	/**
@@ -125,6 +106,8 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 		return contextLog;
 	}
 	
+
+	
 	/**
 	 * 
 	 * @param Obj
@@ -132,15 +115,14 @@ public class Log_Tomcat implements Comparable<Log_Tomcat>  {
 	 */
 	@Override
 	public int compareTo(Log_Tomcat otherLog) {
-		//return dateLog.compareTo(otherLog.getDate());
-		return (positionLog - otherLog.positionLog);
+		return (addressLog.compareTo(otherLog.getAddress()));
 	}
 	/**
 	 * toString to display a log
 	 */
 	@Override
 	public String toString() {
-		return String.format("Log N° : %d -- IP address : %s -- Date: %s -- Context: %s ", positionLog, addressLog, dateLog, contextLog);
+		return String.format("IP address : %s -- Date: %s -- Context: %s ", addressLog, dateLog, contextLog);
 	}
 		
 }

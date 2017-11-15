@@ -5,8 +5,9 @@ import java.util.Date;
 import java.util.ListIterator;
 
 
-public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
+public class Log_Tomcat_Demo {
 
+	private static Scanner saisie;
 	/**
 	 * @param args
 	 * @throws Exception 
@@ -21,125 +22,222 @@ public class Log_Tomcat_Demo implements Comparable<Log_Tomcat> {
 		 * objects class Log, but needs to import the LinkedList Library first
 		 */
 		LinkedList<Log_Tomcat> LogTomcat = new LinkedList<Log_Tomcat>();
+		LogTomcat.add(new Log_Tomcat("10.10.10.1","www.yahoo.com"));
+		LogTomcat.add(new Log_Tomcat("8.8.8.8","www.google.com"));
+		LogTomcat.add(new Log_Tomcat("208.95.248.40","www.nkeyapo.com"));
+		LogTomcat.add(new Log_Tomcat("204.108.245.114","www.dccc.edu"));
+		LogTomcat.add(new Log_Tomcat("169.54.177.64","www.abidjan.net"));
 		
-		LogTomcat.add(new Log_Tomcat(1,"10.10.10.1","www.yahoo.com"));
-		LogTomcat.add(new Log_Tomcat(2,"8.8.8.8","www.google.com"));
-		LogTomcat.add(new Log_Tomcat(3,"208.95.248.40","www.nkeyapo.com"));
-		LogTomcat.add(new Log_Tomcat(4,"204.108.245.114","www.dccc.edu"));
-		LogTomcat.add(new Log_Tomcat(5,"169.54.177.64","www.abidjan.net"));
-			
-       	
-    		
-    		
+		
+		Scanner in = new Scanner(System.in);
+        boolean done = false;
+        int optionUser;
+        
+        System.out.println("Begin Of Demo Collection Log IP address n");
     			try
     			{
-    				
-    				
     				{
-    					int doYouWantQuit = 0;
-    					do {
-    						
-    						Scanner saisie = new Scanner(System.in);
-    						//Calling function displayAllLogs to print the list of logs
-        					displayAllLogs(LogTomcat);
+    					
+    					
+    			        
+    					
+    					
+    					do
+    					{
+    						displayAllLogs(LogTomcat);
+    						optionUser = menuList(in);
+        		            in.nextLine();
+        		            
         					
-        					//Calling function to print the menu of the application 
-        					System.out.println(menuList());
+        					switch(optionUser) {
         					
-        					int userAnswer = saisie.nextInt();
-        					switch(userAnswer) {
         					case 1: 
-        						addingLog(LogTomcat);
-        						displayAllLogs(LogTomcat);
-        						System.out.println(menuList());
-        						userAnswer = saisie.nextInt();
+        						System.out.println("\f");
+        						System.out.println("Adding a new log to the Log file ....");
+        						while(!addingLog(LogTomcat)) {};                       
+                                break;
+        						
+        					case 2: 
+        						System.out.println("\f");
+        						System.out.println("Selecting a specific log from the Log file ....");
+        						while(!selectingLog(LogTomcat)) {};
         						break;
         						
-        					}
+        					case 3:
+        						System.out.println("\f");
+        						System.out.println("Modifying a specific log from the Log file ....");
+        						while(!changingLog(LogTomcat)) {};
+        						//displayAllLogs(LogTomcat);
+        						//menuList(in);
+        						break;
+        						
+        					case 4: 
+        						System.out.println("\f");
+        						System.out.println("Removing a specific log from the Log file ....");
+        						while(!removingLog(LogTomcat)) {};
+        						displayAllLogs(LogTomcat);
+        						break;
+        						
+        					case 0:
+        						System.out.println("\n End of Class of Collection Log ");
+        						System.exit(0);
+        						break;
         					
+        						
+        					
+        						
+        						
+        				}// End of Switch Statement
     						
-    					}while(doYouWantQuit !=0);
-    				}
+    						
+    				}while(!done);
+  
     			}
+    				
+    		}
     			catch(Exception e)
     			{
     				System.out.println(e.getMessage());
     			}
-    			
-    		
-
-    		System.out.println("\n End of Class of Collection Log ");
-		
-
 	}
 	
 	
-	/**
-	 * Function to set and display the menu
-	 * @return
-	 */
-	public static String menuList() {
-		String headMenu = "Please Make A Selection To Proceed : \n ";
-		String add = "Press [1] To Add A Log ";
-		String select = "Press [2] To Display A Log";
-		String change = "Press [3] To Modify A Log";
-		String delete = "Press [4] To Delete A Log";
-		String quit = "Press [0] To Quit The Application\n";
-		
-		return String.format("%s" + "\n"
-		+"%s" + "\n"
-		+"%s" + "\n" 
-		+"%s" + "\n"
-		+"%s" + "\n"
-		+"%s",headMenu, add, select, change, delete, quit);
-		
-		
-		    
+	 /**
+     * This method displays the main program menu of activities.
+     * It allows only valid options to pass.
+     * 
+     * @param in- the Scanner object
+     * @return option - the activity option selected
+     */
+	public static int menuList(Scanner saisie) {
+		int optionUser = 0;
+		do
+		{
+			System.out.println("\f");
+			System.out.println("Please Make A Selection To Proceed :\n	"
+								+"Press [1] To Add A Log\n	"
+								+"Press [2] To Display A Log\n	"
+								+"Press [3] To Modify A Log \n	"
+								+"Press [4] To Delete A Log \n	"
+								+"Press [0] To Quit The Application \n"				
+								);
+			 optionUser = saisie.nextInt();
+        } while (optionUser < 0 || optionUser > 4);
+        return optionUser; 
 	}
+
 	
 	/**
-	 * Function to display the elements of the linkedList of logs
+	 * Function to display all the elements of the linkedList of logs
 	 * @param listLogs
 	 */
-	public static void displayAllLogs(LinkedList<Log_Tomcat> listLogs) {
+	public static void  displayAllLogs(LinkedList<Log_Tomcat> listLogs) {
 		
+		System.out.println("Displaying the current content of Log file");
 		for (Log_Tomcat allLogs : listLogs) {
 			System.out.println(allLogs + "\n");
 		}
+	
 	}
 	/**
-	 * 
+	 * Function to add a log to the file
 	 * @param listLogs
 	 * @throws Exception
 	 */
-	public static void addingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
-		int pos = 0; String ip=""; String context;
-		
+	public static boolean addingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
 		
 		Scanner saisie = new Scanner(System.in);
-		System.out.println("Enter position of log :");
-		pos = saisie.nextInt();
-		System.out.println("Enter the IP address of log");
-		ip = saisie.next();
-		System.out.println("Enter the context :");
-		context = saisie.next();
-		listLogs.add(new Log_Tomcat(pos,ip,context));
+		System.out.println("Enter the IP address of new log :");
+		String ipAdded = saisie.nextLine(); 
+		System.out.println("Enter the content of new log :");
+		String contextAdded = saisie.nextLine();
+		listLogs.add(new Log_Tomcat(ipAdded,contextAdded));
+		System.out.println("\f");
+		System.out.println("Your new log  " + " " + " with IP address " + " " +ipAdded 
+				+ "and content  " + " " + contextAdded + " " + "was successfully added \n");
+		return true;
 	}
 	
-	public static void selectingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
+	/**
+	 * Function select a specific log and display it
+	 * @param listLogs
+	 * @throws Exception
+	 */
+	public static boolean selectingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
 		Scanner saisie = new Scanner(System.in);
-		int logToSelect = 0;
-		System.out.println("Enter the number of the log :");
-		logToSelect = saisie.nextInt();
-		//if(listLogs.contains(logToSelect))
-			//{ System.out.println(listLogs(logToSelect));}
+		System.out.println("Enter the log to display");
+		String toDisplay = saisie.nextLine();
+		
+		for(Log_Tomcat objectDisplay : listLogs) {
+			if(objectDisplay.getAddress().equalsIgnoreCase(toDisplay))
+				{
+				System.out.println("Details of your log : " + " " + toDisplay);
+				System.out.println("Date : "+ " " +objectDisplay.getDate());
+				System.out.println("Your context : " + " " + objectDisplay.getContext() );
+				break;
+			   }
+		}
+		return true;
 		
 	}
 
-	@Override
-	public int compareTo(Log_Tomcat arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * Function almost similar to selecting but it removes a log
+	 * @param listLogs
+	 * @throws Exception
+	 */
+	public static boolean removingLog(LinkedList<Log_Tomcat> listLogs) throws Exception {
+		saisie = new Scanner(System.in);
+		System.out.println("Enter the log to delete :");
+		String toDelete = saisie.next();
+		for(Log_Tomcat objectDelete : listLogs) {
+			if(objectDelete.getAddress().equalsIgnoreCase(toDelete)) 
+				{
+					listLogs.remove(objectDelete);
+					System.out.println("Your log " + " " + toDelete + " " + "was successfully deleted");
+					break;
+			   }
+			if(!(objectDelete.getAddress().equalsIgnoreCase(toDelete))) 
+				{ System.out.println("Sorry! This IP address " + " "+ toDelete + " " + "does  not belong to the log file");
+					break;
+				}
+		}
+		return true;
+	}
+		/**
+		 * Function to select a log and modify its value.
+		 * @param changedLog
+		 * @throws Exception
+		 */
+		public static boolean changingLog(LinkedList<Log_Tomcat> changedLog) throws Exception {
+			Scanner saisie = new Scanner(System.in);
+			System.out.println("Enter log to change :");
+			String toChange = saisie.next();
+			
+			for(Log_Tomcat objectDisplay : changedLog) {
+				if(objectDisplay.getAddress().equalsIgnoreCase(toChange))
+					{
+					System.out.println("This is the current value of your log " );
+					System.out.println("Details of your log : " + " " + toChange);
+					System.out.println("Date : "+ " " +objectDisplay.getDate());
+					System.out.println("Your context : " + " " + objectDisplay.getContext() );
+					objectDisplay.setDate();
+					System.out.println("Enter new Ip address :");
+					objectDisplay.setAddress(saisie.next());
+					System.out.println("Enter new content :");
+					objectDisplay.setContext(saisie.next());
+					System.out.println("Your changes have been process with succes");
+					
+					break;
+				   }
+					
+				}
+				return true;
+			  
+			
+			
+		}
+			
+		
 	}
 
-}
