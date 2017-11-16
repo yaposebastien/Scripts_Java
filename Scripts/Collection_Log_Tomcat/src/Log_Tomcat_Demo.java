@@ -122,10 +122,17 @@ public class Log_Tomcat_Demo {
 	 */
 	public static void displayAllLogs(LinkedList<Log_Tomcat> listLogs) {
 		
+		if(listLogs.size() == 0) 
+			{System.out.println("Empty Log file.");
+			}
+		
+		if(listLogs.size() > 0) {
 		System.out.println("Displaying the current content of Log file");
 		for (Log_Tomcat allLogs : listLogs) {
 			System.out.println("Index:" + " " + listLogs.indexOf(allLogs) +  allLogs +  "\n");
+			}
 		}
+		
 		
 	
 	}
