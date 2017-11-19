@@ -30,7 +30,7 @@ public class Student {
 	}
 	
 	/**
-	 * 
+	 * Constructor with parameters
 	 * @param id
 	 * @param name
 	 * @param major
@@ -39,8 +39,15 @@ public class Student {
 	public Student(int id, String name, String major ) throws Exception {
 		
 		setStudentId(id);
+		setStudentName(name);
+		setStudentMajor(major);
 	}
 	
+	/**
+	 * Special constructor
+	 * @param id
+	 * @throws Exception
+	 */
 	public Student(int id) throws Exception {
 		
 		if(id > 0)
@@ -87,6 +94,32 @@ public class Student {
 			{ throw new Exception("Invalid input! The Student's name must not be an empty string.");}
 	}
 	
+	/**
+	 * getStudentName - 
+	 * @return studName - Name of the student
+	 */
+	public String getStudentName() {
+		return studName;
+	}
+	
+	/**
+	 * Set the Student's major with parameter
+	 * @param major - Major of the Student
+	 * @throws Exception
+	 */
+	public void setStudentMajor(String major) throws Exception {
+		if(major.length() == 3)
+			{ studMajor = major; }
+		else
+			{ throw new Exception("Invalid input! The Student's major  must be three case characters e.g: CIS or cis.");}
+		
+	}
+	/**
+	 * getStudentMajor -
+	 * @return studMajor - Major of the student
+	 */
+	public String getStudentMajor() {
+		return studMajor;
 	}
 
 }//End of class Student
