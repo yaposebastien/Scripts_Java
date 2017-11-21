@@ -11,7 +11,7 @@
  * 
  *
  */
-public class Student {
+public class Student implements Comparable<Student> {
 	
 	protected int studId;
 	private String studName;
@@ -121,5 +121,18 @@ public class Student {
 	public String getStudentMajor() {
 		return studMajor;
 	}
+	
+	/**
+	 * Implementation of compareTo for class Student
+	 */
+	public int compareTo(Student aStudent) {
+		return (studId - aStudent.studId);
+	}
+	
+	public String toString() {
+		return String.format("\n Student Id: %d -- Name: %s -- Major: %s \n", studId, studName, studMajor );
+	}
+ 	
+	
 
 }//End of class Student

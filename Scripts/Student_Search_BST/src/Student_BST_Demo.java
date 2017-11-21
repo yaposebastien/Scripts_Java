@@ -1,3 +1,4 @@
+
 import java.util.Scanner;
 
 
@@ -10,6 +11,7 @@ public class Student_BST_Demo {
 	public static void main(String[] args) throws Exception {
 			
 		BinarySearchTree StudentBst = new BinarySearchTree();
+		
 		
 		StudentBst.add(new Student(1,"Yapo JB", "CIS"));
 		StudentBst.add(new Student(2,"Asseu Rodrigue", "NET"));
@@ -28,15 +30,13 @@ public class Student_BST_Demo {
 			do
 			{
 				//Calling Method to display all Students
+				
 				displayAllStudents(StudentBst);
 				optionUser = menuList(saisie);
 				saisie.nextInt();
 				
 				switch(optionUser) {
 				
-				case 1:
-					StudentBst.add(new Student(0,"Yapo JB", "CIS"));
-					break;
 				
 				}//End of Loop Switch
 				
@@ -74,6 +74,7 @@ public class Student_BST_Demo {
 		}//End Of MenuList
 		
 		public static void displayAllStudents(BinarySearchTree StudentBst) {
+			
 			StudentBst.print();
 			
 		}
