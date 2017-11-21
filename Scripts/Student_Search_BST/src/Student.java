@@ -1,6 +1,6 @@
 /**
  * 
- * @author Yankees
+ * @author Nke Sebastien Yapo
  * 
  * Purpose:
  * demonstrate ability to design simple Student class 
@@ -88,8 +88,9 @@ public class Student implements Comparable<Student> {
 	 */
 	public void  setStudentName(String name) throws Exception {
 		
-		if(name.length() > 0 )
-			{ studName = name; }
+		if(name != " " )
+			{
+				studName = name; }
 		else
 			{ throw new Exception("Invalid input! The Student's name must not be an empty string.");}
 	}
