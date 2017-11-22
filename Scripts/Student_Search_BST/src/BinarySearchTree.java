@@ -6,6 +6,7 @@
 public class BinarySearchTree
 {  
    private Node root;
+   private int size = 0;
 
    /**
     * Constructs an empty tree.
@@ -13,6 +14,14 @@ public class BinarySearchTree
    public BinarySearchTree()
    {  
       root = null;
+   }
+   
+   /**
+    * Returns the current size of the tree
+    */
+   public int size()
+   {
+       return size;
    }
    
    /**
@@ -26,6 +35,7 @@ public class BinarySearchTree
       newNode.data = obj;
       newNode.left = null;
       newNode.right = null;
+      size++;
       if (root == null) 
           root = newNode;
       else 
@@ -101,6 +111,7 @@ public class BinarySearchTree
              parent.left = newChild;
          else 
              parent.right = newChild;
+         size--;
          return;
       }
       
@@ -120,7 +131,8 @@ public class BinarySearchTree
       if (smallestParent == toBeRemoved) 
           smallestParent.right = smallest.right; 
       else 
-          smallestParent.left = smallest.right;      
+          smallestParent.left = smallest.right;          
+      size--;
    }
    
    /**
@@ -142,7 +154,7 @@ public class BinarySearchTree
       if (parent == null) 
           return;
       print(parent.left);
-      System.out.print(parent.data + " ");
+      System.out.println(parent.data);
       print(parent.right);
    }
 
@@ -180,9 +192,6 @@ public class BinarySearchTree
          }
       }
    }
-
-
 }
-
 
 

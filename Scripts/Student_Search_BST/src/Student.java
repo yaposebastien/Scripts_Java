@@ -131,7 +131,7 @@ public class Student implements Comparable<Student> {
 	}
 	
 	public String toString() {
-		return String.format("\n Student Id: %d -- Name: %s -- Major: %s \n", studId, studName, studMajor );
+		return String.format("\n Student Id: %d -- Name: %s -- Major: %s ", studId, studName, studMajor );
 	}
  	
 	

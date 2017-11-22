@@ -10,12 +10,12 @@ public class Student_BST_Demo {
 	 */
 	public static void main(String[] args) throws Exception {
 			
-		BinarySearchTree StudentBst = new BinarySearchTree();
+		BinarySearchTree listOfStudents = new BinarySearchTree();
 		
 		
-		StudentBst.add(new Student(1,"Yapo JB", "CIS"));
-		StudentBst.add(new Student(2,"Asseu Rodrigue", "NET"));
-		StudentBst.add(new Student(3,"N'depo Paul", "EGR"));
+		listOfStudents.add(new Student(1,"Yapo JB", "CIS"));
+		listOfStudents.add(new Student(2,"Asseu Rodrigue", "NET"));
+		listOfStudents.add(new Student(3,"N'depo Paul", "EGR"));
 		
 		System.out.println("Begin of Demo Binary Search Tree of Srudents. \n");
 		
@@ -31,7 +31,7 @@ public class Student_BST_Demo {
 				do
 				{
 					//Calling Method to display all Students
-					displayAllStudents(StudentBst);
+					displayAllStudents(listOfStudents);
 					optionUser = menuList(saisie);
 					saisie.nextLine();
 					
@@ -39,10 +39,34 @@ public class Student_BST_Demo {
 					
 						case 1:
 							System.out.println("Adding a new student to the Application ...");
-							while(!addingNewStudent(StudentBst)) {};
+							while(!addingNewStudent(saisie,listOfStudents)) {};
 							break;
 						
-					
+						case 2:
+							System.out.println("Searching a student to the Application ...");
+							while(!searchStudent(saisie,listOfStudents)) {};
+							break;
+							
+						case 3:
+							System.out.println("Modifying a student into the Application ...");
+							break;
+						
+						case 4:
+							System.out.println("Removing a student from the application ...");
+							while(!removingStudent(saisie,listOfStudents)) {};
+							break;
+							
+						case 5:
+							System.out.println("Displaying list of students by major...");
+							break;
+							
+						case 0:
+							System.out.println("Quit the application ...");
+							displayAllStudents(listOfStudents);
+							System.exit(0);
+							break;
+						
+						
 						
 					
 					}//End of Loop Switch
@@ -87,46 +111,82 @@ public class Student_BST_Demo {
 
 		/**
 		 * 
-		 * @param StudentBst
+		 * @param listOfStudents
 		 */
-		public static void displayAllStudents(BinarySearchTree StudentBst) {
+		public static void displayAllStudents(BinarySearchTree listOfStudents) {
 			
-			StudentBst.print();
+			listOfStudents.print();
 			
 		}
+		/**
+		 * Function to add a new student to the Binary Search tree
+		 * @param saisie - Scanner saisie to avoid to declare it many time along the code
+		 * @param listOfStudents - Binary Search Tree name
+		 * @return
+		 * @throws Exception
+		 */
 		
-		public static boolean addingNewStudent(BinarySearchTree StudentBst) throws Exception {
+		public static boolean addingNewStudent(Scanner saisie, BinarySearchTree listOfStudents) throws Exception {
 			
-			int id;
-			
-			String major;
-			
-			Scanner Saisie = new Scanner(System.in);
+			//Creation of a new instance of Student to contain information through the scanner
 			Student studentLambda = new Student();
 		
 			System.out.println("Enter the Student ID:");
-			studentLambda.setStudentId(Saisie.nextInt());
+			studentLambda.setStudentId(saisie.nextInt());
 			
 			System.out.println("Enter the Student name:");
-			studentLambda.setStudentName(Saisie.next());
+			studentLambda.setStudentName(saisie.next());
 			
 			System.out.println("Enter the Student Major:");
-			studentLambda.setStudentMajor(Saisie.next().toUpperCase());
+			studentLambda.setStudentMajor(saisie.next().toUpperCase());
 			
-			
-			/*studentLambda.setStudentId(id);
-			studentLambda.setStudentName(name);
-			studentLambda.setStudentMajor(major);*/
-			
-			StudentBst.add(studentLambda);
+			listOfStudents.add(studentLambda);
 					
-			//StudentBst.add(new Student(id,name,major));
+			return true;
+		}
+		
+		/**
+		 * 
+		 * @param saisie
+		 * @param listOfStudents
+		 * @return
+		 * @throws Exception
+		 */
+		public static boolean searchStudent(Scanner saisie, BinarySearchTree listOfStudents ) throws  Exception {
 			
+			
+			System.out.println("Enter the Student ID to search:");
+			int idToSearch = saisie.nextInt();
+			
+			Student studentLambda = (Student) new  Student(idToSearch);
+			
+			if(listOfStudents.find(studentLambda))
+				{
+				System.out.println("Student with ID" + " " + idToSearch + " " + "was found.");
+				System.out.println("Student ID: " + idToSearch);
+				System.out.println("Student Name: " );
+				System.out.println("Student Major: " + studentLambda.getStudentMajor());
+
+				}
+			if(!listOfStudents.find(studentLambda))
+				
+				System.out.println("Sorry! Student with ID " + " " + idToSearch + " " + "does not appear on Student List");
 			return true;
 		}
 
-
+		public static boolean removingStudent(Scanner saisie, BinarySearchTree listOfStudents ) throws  Exception {
 		
+			System.out.println("Enter the Student ID to remove:");
+			int idToRemove = saisie.nextInt();
+			
+			listOfStudents.remove((int)idToRemove);
+			
+			/*Student studentLambda = (Student) new  Student(idToRemove);
+			
+			if(listOfStudents.find(studentLambda))
+				{ }*/
+			return true;
+		}
 	}
 
 
