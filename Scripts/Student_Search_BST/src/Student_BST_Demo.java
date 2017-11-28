@@ -49,11 +49,12 @@ public class Student_BST_Demo {
 							
 						case 3:
 							System.out.println("Modifying a student into the Application ...");
+							while(!modifyStudent(saisie,listOfStudents)) {};
 							break;
 						
 						case 4:
 							System.out.println("Removing a student from the application ...");
-							while(!removingStudent(saisie,listOfStudents)) {};
+							while(!removeStudent(saisie,listOfStudents)) {};
 							break;
 							
 						case 5:
@@ -61,8 +62,8 @@ public class Student_BST_Demo {
 							break;
 							
 						case 0:
-							System.out.println("Quit the application ...");
 							displayAllStudents(listOfStudents);
+							System.out.println("Quit the application ...");
 							System.exit(0);
 							break;
 						
@@ -96,7 +97,7 @@ public class Student_BST_Demo {
 			do
 					{
 						;
-						System.out.println("Please Make A Selection To Proceed :\n	"
+						System.out.println("\nPlease Make A Selection To Proceed :\n	"
 											+"Press [1] To Add A Student\n	"
 											+"Press [2] To Search A Student\n	"
 											+"Press [3] To Modify A Student \n	"
@@ -115,7 +116,9 @@ public class Student_BST_Demo {
 		 */
 		public static void displayAllStudents(BinarySearchTree listOfStudents) {
 			
+			System.out.println("Current list of Students");
 			listOfStudents.print();
+			System.out.println("\n");
 			
 		}
 		/**
@@ -158,33 +161,73 @@ public class Student_BST_Demo {
 			System.out.println("Enter the Student ID to search:");
 			int idToSearch = saisie.nextInt();
 			
-			Student studentLambda = (Student) new  Student(idToSearch);
+			Student studentQuidam = (Student) listOfStudents.find(new Student(idToSearch));
 			
-			if(listOfStudents.find(studentLambda))
-				{
-				System.out.println("Student with ID" + " " + idToSearch + " " + "was found.");
-				System.out.println("Student ID: " + idToSearch);
-				System.out.println("Student Name: " );
-				System.out.println("Student Major: " + studentLambda.getStudentMajor());
-
+			if(studentQuidam == null)
+				{ System.out.println("The Student with ID:" + " " +idToSearch + " " + "was not found in the system.");}
+			else
+				{ System.out.println("Student found information : " + " " + studentQuidam.toString());
+					System.out.println("\n");
 				}
-			if(!listOfStudents.find(studentLambda))
-				
-				System.out.println("Sorry! Student with ID " + " " + idToSearch + " " + "does not appear on Student List");
+					
+			return true;
+		}
+		
+		/**
+		 * 
+		 * @param saisie
+		 * @param listOfStudents
+		 * @return
+		 * @throws Exception
+		 */
+		public static boolean modifyStudent(Scanner saisie, BinarySearchTree listOfStudents) throws Exception {
+			
+			System.out.println("Enter the Student ID to modify:");
+			int idToModify = saisie.nextInt();
+			
+			Student studentQuidam = (Student) listOfStudents.find(new Student(idToModify));
+			
+			if(studentQuidam == null)
+				{ System.out.println("Sorry! The Student with ID:" + " " +idToModify + " " + "can not be modify."); }
+			else
+				{
+					System.out.println("Enter student's new name:");
+					String name = saisie.next();
+					studentQuidam.setStudentName(name);
+					System.out.println("Enter student's new major:");
+					String major = saisie.next();
+					studentQuidam.setStudentMajor(major.toUpperCase());
+					
+					System.out.println("The Student with ID : " + " " +idToModify + " "
+							+ "and new name " + " " + studentQuidam.getStudentName() + " "
+							+ "and new major " + " " + studentQuidam.getStudentMajor() + " "
+							+ "has been updated");
+				}
+			
 			return true;
 		}
 
-		public static boolean removingStudent(Scanner saisie, BinarySearchTree listOfStudents ) throws  Exception {
+		/**
+		 * 
+		 * @param saisie
+		 * @param listOfStudents
+		 * @return
+		 * @throws Exception
+		 */
+		public static boolean removeStudent(Scanner saisie, BinarySearchTree listOfStudents ) throws  Exception {
 		
 			System.out.println("Enter the Student ID to remove:");
 			int idToRemove = saisie.nextInt();
 			
-			listOfStudents.remove((int)idToRemove);
 			
-			/*Student studentLambda = (Student) new  Student(idToRemove);
+			if(listOfStudents.findKey(listOfStudents.find(new Student(idToRemove))))
+				{ 
+					System.out.println("trouve");
+					listOfStudents.remove(new Student(idToRemove));
+				
+				}
 			
-			if(listOfStudents.find(studentLambda))
-				{ }*/
+			
 			return true;
 		}
 	}

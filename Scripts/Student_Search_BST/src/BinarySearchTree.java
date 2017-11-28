@@ -3,10 +3,12 @@
  * nodes hold objects that implement the Comparable
  * interface.
  */
+import java.util.ArrayList;
+
 public class BinarySearchTree
 {  
    private Node root;
-   private int size = 0;
+   private int size;
 
    /**
     * Constructs an empty tree.
@@ -14,10 +16,13 @@ public class BinarySearchTree
    public BinarySearchTree()
    {  
       root = null;
+      size = 0;
    }
    
    /**
-    * Returns the current size of the tree
+    * Returns the number of elements in the tree
+    * 
+    * @return size - the number of elements in the tree
     */
    public int size()
    {
@@ -35,20 +40,21 @@ public class BinarySearchTree
       newNode.data = obj;
       newNode.left = null;
       newNode.right = null;
-      size++;
       if (root == null) 
           root = newNode;
       else 
           root.addNode(newNode);
+      size++;
    }
-
+   
    /**
-    * Tries to find an object in the tree.
+    * Tries to find if an object in the tree has a matching key.
     * 
     * @param obj the object to find
-    * @return true if the object is contained in the tree
+    * @return true if the object matches the key of an object 
+    * in the tree
     */
-   public boolean find(Comparable obj)
+   public boolean findKey(Comparable obj)
    {
       Node current = root;
       while (current != null)
@@ -62,6 +68,30 @@ public class BinarySearchTree
              current = current.right;
       }
       return false;
+   }
+
+   /**
+    * Tries to find a specific object in the tree.
+    * 
+    * @param obj the object to find
+    * @return true if the object is contained in the tree
+    */
+   public Comparable find(Comparable obj)
+   {
+      Node current = root;
+      while (current != null)
+      {
+         int d = current.data.compareTo(obj);         
+         if (d == 0)
+         {             
+             return current.data;
+         }
+         else if (d > 0) 
+             current = current.left; 
+         else 
+             current = current.right;
+      }
+      return null;
    }
    
    /**
@@ -111,7 +141,6 @@ public class BinarySearchTree
              parent.left = newChild;
          else 
              parent.right = newChild;
-         size--;
          return;
       }
       
@@ -131,9 +160,9 @@ public class BinarySearchTree
       if (smallestParent == toBeRemoved) 
           smallestParent.right = smallest.right; 
       else 
-          smallestParent.left = smallest.right;          
+          smallestParent.left = smallest.right;
       size--;
-   }
+   }   
    
    /**
     * Prints the contents of the tree in sorted order.
@@ -141,7 +170,6 @@ public class BinarySearchTree
    public void print()
    {  
       print(root);
-      System.out.println();
    }  
 
    /**
@@ -149,15 +177,31 @@ public class BinarySearchTree
     * 
     * @param parent the root of the subtree to print
     */
-   private static void print(Node parent)
+   private void print(Node parent)
    {  
       if (parent == null) 
           return;
       print(parent.left);
-      System.out.println(parent.data);
+      System.out.print(parent.data.toString());
       print(parent.right);
    }
-
+   
+   public ArrayList<Object> getList()
+   {
+      ArrayList<Object> list = new ArrayList<Object>();
+      getList(list, root);
+      return list;
+   }
+   
+   private void getList(ArrayList<Object> list, Node parent)
+   {  
+      if (parent == null) 
+          return;
+      getList(list,parent.left);
+      list.add(parent.data);
+      getList(list, parent.right);
+   }
+   
    /**
     * A node of a tree stores a data item and references
     * to the left and right child nodes.
