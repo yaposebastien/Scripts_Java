@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
@@ -59,6 +62,7 @@ public class Student_BST_Demo {
 							
 						case 5:
 							System.out.println("Displaying list of students by major...");
+							while(!displayStudentsByMajor(saisie,listOfStudents))
 							break;
 							
 						case 0:
@@ -116,9 +120,13 @@ public class Student_BST_Demo {
 		 */
 		public static void displayAllStudents(BinarySearchTree listOfStudents) {
 			
-			System.out.println("Current list of Students");
-			listOfStudents.print();
-			System.out.println("\n");
+			if(listOfStudents.size() > 0)
+			{
+				System.out.println("Current State : " +listOfStudents.size() + " " + "Students");
+				listOfStudents.print();
+				System.out.println("\n");	
+			}
+			
 			
 		}
 		/**
@@ -222,11 +230,32 @@ public class Student_BST_Demo {
 			
 			if(listOfStudents.findKey(listOfStudents.find(new Student(idToRemove))))
 				{ 
-					System.out.println("trouve");
 					listOfStudents.remove(new Student(idToRemove));
-				
 				}
+			return true;
+		}
+		
+		public static boolean displayStudentsByMajor(Scanner saisie, BinarySearchTree listOfStudents) {
 			
+			System.out.println("Enter the major of list of students :");
+			String major = saisie.next().toUpperCase();
+			
+			ArrayList<Object> listOfStudentsByMajor = new ArrayList<Object>();
+			listOfStudentsByMajor = listOfStudents.getList();
+			
+			for(Object listByMajor: listOfStudentsByMajor){
+				if(((Student) listByMajor).getStudentMajor().contains(major))
+				System.out.println("Each Line:" + " " + ((Student) listByMajor));
+		   }
+			
+		
+				
+				
+			
+			
+			
+			
+				
 			
 			return true;
 		}
