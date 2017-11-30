@@ -215,7 +215,14 @@ public class Student_BST_Demo {
 			else
 				{
 					System.out.println("Enter student's new name:");
-					String name = saisie.next();
+					String name = "";
+					/**
+					 * This block allows the user to enter a long String with space between
+					 */
+					while(saisie.hasNext()){
+						name = saisie.nextLine();
+						if(name.contains(" ")) {break;}
+					}
 					studentQuidam.setStudentName(name);
 					System.out.println("Enter student's new major:");
 					String major = saisie.next();
