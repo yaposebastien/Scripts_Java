@@ -1,4 +1,5 @@
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -23,10 +24,8 @@ public class Student_BST_Demo {
 		System.out.println("Begin of Demo Binary Search Tree of Srudents. \n");
 		
 		boolean done = false;
-		int optionUser;
+		int optionUser ;
 		Scanner saisie = new Scanner(System.in);
-		
-		
 		
 		try
 		{
@@ -43,37 +42,44 @@ public class Student_BST_Demo {
 						case 1:
 							System.out.println("Adding a new student to the Application ...");
 							while(!addingNewStudent(saisie,listOfStudents)) {};
+							displayAllStudents(listOfStudents);
+							pause();
 							break;
 						
 						case 2:
 							System.out.println("Searching a student to the Application ...");
 							while(!searchStudent(saisie,listOfStudents)) {};
+							displayAllStudents(listOfStudents);
+							pause();
 							break;
 							
 						case 3:
 							System.out.println("Modifying a student into the Application ...");
 							while(!modifyStudent(saisie,listOfStudents)) {};
+							displayAllStudents(listOfStudents);
+							pause();
 							break;
 						
 						case 4:
 							System.out.println("Removing a student from the application ...");
 							while(!removeStudent(saisie,listOfStudents)) {};
+							displayAllStudents(listOfStudents);
+							pause();
 							break;
 							
 						case 5:
 							System.out.println("Displaying list of students by major...");
-							while(!displayStudentsByMajor(saisie,listOfStudents))
+							while(!displayStudentsByMajor(saisie,listOfStudents)) {};
+							displayAllStudents(listOfStudents);
+							pause();
 							break;
 							
-						case 0:
+						case 6:
 							displayAllStudents(listOfStudents);
-							System.out.println("Quit the application ...");
+							System.out.println("End of the application ...");
 							System.exit(0);
 							break;
-						
-						
-						
-					
+							
 					}//End of Loop Switch
 					
 				}while(!done);
@@ -107,10 +113,10 @@ public class Student_BST_Demo {
 											+"Press [3] To Modify A Student \n	"
 											+"Press [4] To Remove A Student \n	"
 											+"Press [5] To Display List Of Students By Major \n	"
-											+"Press [0] To Quit The Application \n"				
+											+"Press [6] To Quit The Application \n"				
 											);
 						 option = Saisie.nextInt();
-			        } while (option < 0 || option > 5);
+			        } while (option < 0 || option > 6);
 	        return option; 
 		}//End Of MenuList
 
@@ -122,7 +128,7 @@ public class Student_BST_Demo {
 			
 			if(listOfStudents.size() > 0)
 			{
-				System.out.println("Current State : " +listOfStudents.size() + " " + "Students");
+				System.out.println("\n Total : " +listOfStudents.size() + " " + "Students");
 				listOfStudents.print();
 				System.out.println("\n");	
 			}
@@ -146,9 +152,18 @@ public class Student_BST_Demo {
 			studentLambda.setStudentId(saisie.nextInt());
 			
 			System.out.println("Enter the Student name:");
-			studentLambda.setStudentName(saisie.next());
-			
+			String name = "";
+			/**
+			 * This block allows the user to enter a long String with space between
+			 */
+			while(saisie.hasNext()){
+				name = saisie.nextLine();
+				if(name.contains(" ")) {break;}
+			}
+			studentLambda.setStudentName(name);
+		
 			System.out.println("Enter the Student Major:");
+			
 			studentLambda.setStudentMajor(saisie.next().toUpperCase());
 			
 			listOfStudents.add(studentLambda);
@@ -243,21 +258,31 @@ public class Student_BST_Demo {
 			ArrayList<Object> listOfStudentsByMajor = new ArrayList<Object>();
 			listOfStudentsByMajor = listOfStudents.getList();
 			
+			System.out.println("\nMAJOR: " +major + "\n");
+			int count = 0;
 			for(Object listByMajor: listOfStudentsByMajor){
+				
 				if(((Student) listByMajor).getStudentMajor().contains(major))
-				System.out.println("Each Line:" + " " + ((Student) listByMajor));
-		   }
-			
-		
-				
-				
-			
-			
-			
-			
-				
-			
+				{
+					count++;
+					System.out.println("ID: " +((Student) listByMajor).getStudentId() + " " 
+										+ "Name: " +((Student) listByMajor).getStudentName() + " "
+										
+							);
+				}
+		   }	
+			System.out.println("\n");
+			System.out.println("Total students enrolled in " + " " + major + " is: " + " " + count);
 			return true;
+		}
+		
+		/**
+		* This method pauses processing until the user enters any key
+		*/
+		public static void pause() throws IOException
+		{
+		System.out.print("Press Enter key to continue: ");
+		char c = (char) System.in.read();
 		}
 	}
 
