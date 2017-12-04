@@ -90,11 +90,7 @@ public class Student_BST_Demo {
 				System.out.println("SYSTEM ERROR: " + e.getMessage());
 			}
 		}
-	
-		
-			
-			
-		
+				
 		 /**
 	     * This method displays the main program menu of activities.
 	     * It allows only valid options to pass.
@@ -106,7 +102,7 @@ public class Student_BST_Demo {
 			int option = 0;
 			do
 					{
-						;
+						
 						System.out.println("\nPlease Make A Selection To Proceed :\n	"
 											+"Press [1] To Add A Student\n	"
 											+"Press [2] To Search A Student\n	"
@@ -128,7 +124,7 @@ public class Student_BST_Demo {
 			
 			if(listOfStudents.size() > 0)
 			{
-				System.out.println("\n Total : " +listOfStudents.size() + " " + "Students");
+				System.out.println("\n Total Of Students: " +listOfStudents.size());
 				listOfStudents.print();
 				System.out.println("\n");	
 			}
@@ -189,7 +185,7 @@ public class Student_BST_Demo {
 			if(studentQuidam == null)
 				{ System.out.println("The Student with ID:" + " " +idToSearch + " " + "was not found in the system.");}
 			else
-				{ System.out.println("Student found information : " + " " + studentQuidam.toString());
+				{ System.out.println("\nStudent found information : " + " " + studentQuidam.toString());
 					System.out.println("\n");
 				}
 					
@@ -224,6 +220,7 @@ public class Student_BST_Demo {
 						if(name.contains(" ")) {break;}
 					}
 					studentQuidam.setStudentName(name);
+					
 					System.out.println("Enter student's new major:");
 					String major = saisie.next();
 					studentQuidam.setStudentMajor(major.toUpperCase());
@@ -250,10 +247,12 @@ public class Student_BST_Demo {
 			int idToRemove = saisie.nextInt();
 			
 			
-			if(listOfStudents.findKey(listOfStudents.find(new Student(idToRemove))))
+			if(listOfStudents.findKey( new Student(idToRemove)))
 				{ 
 					listOfStudents.remove(new Student(idToRemove));
 				}
+			else
+				{ System.out.println("Sorry! this student ID " + " " +idToRemove + " " + "does not exist in the list");}
 			return true;
 		}
 		

@@ -141,6 +141,8 @@ public class BinarySearchTree
              parent.left = newChild;
          else 
              parent.right = newChild;
+         //add this line
+         size--;
          return;
       }
       
